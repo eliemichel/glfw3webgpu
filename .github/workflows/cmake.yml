@@ -13,11 +13,20 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.platform }}
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        install-deps: [ "" ]
+        include:
+        - os: ubuntu-latest
+          install-deps: apt install xorg-dev
+        
+        
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Install dependencies
+      run: ${{ matrix.install-deps }}
 
     - name: Configure CMake
       run: cmake -S examples -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
