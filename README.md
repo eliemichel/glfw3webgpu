@@ -1,3 +1,5 @@
+<img src="https://github.com/eliemichel/glfw3webgpu/actions/workflows/cmake.yml/badge.svg" alt="CMake Badge" />
+
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/eliemichel/LearnWebGPU/main/images/webgpu-dark.svg">
@@ -8,7 +10,6 @@
   <a href="https://github.com/eliemichel/LearnWebGPU">LearnWebGPU</a> &nbsp;|&nbsp; <a href="https://github.com/eliemichel/WebGPU-Cpp">WebGPU-C++</a> &nbsp;|&nbsp; <a href="https://github.com/eliemichel/glfw3webgpu">glfw3webgpu</a> &nbsp;|&nbsp; <a href="https://github.com/eliemichel/WebGPU-binaries">WebGPU-binaries</a>
 </div>
 
-<img align="left" src="https://github.com/eliemichel/glfw3webgpu/actions/workflows/cmake.yml/badge.svg" alt="CMake Badge" />
 
 GLFW WebGPU Extension
 =====================
