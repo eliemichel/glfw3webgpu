@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
 	// Here we create our WebGPU surface from the window!
 	WGPUSurface surface = glfwGetWGPUSurface(instance, window);
-	printf("surface = %p", surface);
+	printf("surface = %p", (void*)surface);
 
 	// Terminate GLFW
 	while (!glfwWindowShouldClose(window)) glfwPollEvents();
