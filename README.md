@@ -38,11 +38,11 @@ Given a GLFW window, `glfwGetWGPUSurface` returns a WebGPU *surface* that corres
 Usage
 -----
 
-Your project must link to an implementation of WebGPU (providing `webgpu.h`) and of course to GLFW.
+Your project must link to an implementation of WebGPU (providing `webgpu.h`) and of course to GLFW. Then:
 
 **Option A** If you use CMake, you can simply include this project as a subdirectory with `add_subdirectory(glfw3webgpu)` (see the content of [`CMakeLists.txt`](CMakeLists.txt)).
 
-**Option B** Just copy `glfw3webgpu.h` and `glfw3webgpu.c` to your project's source tree. On MacOS, you must add the compile option `-x objective-c` and the link libraries `-framework Cocoa`, `-framework CoreVideo`, `-framework IOKit`, and `-framework QuartzCore`.
+**Option B** Just copy [`glfw3webgpu.h`](glfw3webgpu.h) and [`glfw3webgpu.c`](glfw3webgpu.c) to your project's source tree. On MacOS, you must add the compile option `-x objective-c` and the link libraries `-framework Cocoa`, `-framework CoreVideo`, `-framework IOKit`, and `-framework QuartzCore`.
 
 Example
 -------
