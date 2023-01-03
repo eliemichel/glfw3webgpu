@@ -1,7 +1,20 @@
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/eliemichel/LearnWebGPU/main/images/webgpu-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/eliemichel/LearnWebGPU/main/images/webgpu-light.svg">
+    <img alt="Learn WebGPU Logo" src="images/webgpu-dark.svg" width="200">
+  </picture>
+
+  <a href="https://github.com/eliemichel/LearnWebGPU">LearnWebGPU</a> &nbsp;|&nbsp; <a href="https://github.com/eliemichel/WebGPU-Cpp">WebGPU-C++</a> &nbsp;|&nbsp; <a href="https://github.com/eliemichel/glfw3webgpu">glfw3webgpu</a>
+</div>
+
 GLFW WebGPU Extension
 =====================
 
 This is an extension for the great [GLFW](https://www.glfw.org/) library for using it with **WebGPU native**. It was written as part of the [Learn WebGPU for native C++](https://eliemichel.github.io/LearnWebGPU) tutorial series.
+
+Table of Contents
+-----------------
 
  - [Overview](#overview)
  - [Usage](#usage)
