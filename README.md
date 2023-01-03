@@ -1,3 +1,5 @@
+<img align="left" src="https://github.com/eliemichel/glfw3webgpu/actions/workflows/cmake.yml/badge.svg" alt="CMake Badge" />
+
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/eliemichel/LearnWebGPU/main/images/webgpu-dark.svg">
