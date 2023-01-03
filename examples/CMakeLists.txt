@@ -19,9 +19,9 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(glfw-light webgpu)
 
 # The glfw3webgpu target
-add_library(glfw3webgpu STATIC ../glfw3webgpu.c)
-target_include_directories(glfw3webgpu PUBLIC ..)
-target_link_libraries(glfw3webgpu PUBLIC glfw webgpu)
+# NB: We specify a second argument only because this is an out-of-tree
+# directory, no need to do this in your case.
+add_subdirectory(.. glfw3webgpu)
 
 # Example
 add_executable(hello-glfw3webgpu hello-glfw3webgpu.c)
