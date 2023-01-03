@@ -13,8 +13,8 @@ FetchContent_Declare(
 )
 FetchContent_Declare(
   webgpu
-  GIT     https://github.com/eliemichel/WebGPU-binaries.git
-  GIT_TAG main
+  GIT_REPOSITORY https://github.com/eliemichel/WebGPU-binaries.git
+  GIT_TAG        main
 )
 FetchContent_MakeAvailable(glfw-light webgpu)
 
