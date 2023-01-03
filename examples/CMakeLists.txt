@@ -13,8 +13,8 @@ FetchContent_Declare(
 )
 FetchContent_Declare(
   webgpu
-  URL      https://eliemichel.github.io/LearnWebGPU/_downloads/f877ac8b0fa3ded16a7485afd02f1762/wgpu-native-for-any.zip
-  URL_HASH MD5=b506e45e4b49facc84832d1c49597870
+  GIT     https://github.com/eliemichel/WebGPU-binaries.git
+  GIT_TAG main
 )
 FetchContent_MakeAvailable(glfw-light webgpu)
 

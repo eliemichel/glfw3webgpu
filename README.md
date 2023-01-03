@@ -47,6 +47,7 @@ Thanks to this extension it is possible to simply write a fully cross-platform W
 ```C
 #include "glfw3webgpu.h"
 
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <webgpu.h>
 #include <stdio.h>

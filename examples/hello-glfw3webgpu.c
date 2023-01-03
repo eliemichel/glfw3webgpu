@@ -29,6 +29,7 @@
 
 #include "glfw3webgpu.h"
 
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <webgpu.h>
 #include <stdio.h>
@@ -36,7 +37,7 @@
 int main(int argc, char* argv[]) {
 	(void)argc;
 	(void)argv;
-	
+
 	// Init WebGPU
 	WGPUInstanceDescriptor desc;
 	desc.nextInChain = NULL;
