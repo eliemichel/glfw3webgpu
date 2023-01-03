@@ -33,10 +33,13 @@
 #include <webgpu.h>
 #include <stdio.h>
 
-int main(int, char**) {
+int main(int argc, char* argv[]) {
+	(void)argc;
+	(void)argv;
+	
 	// Init WebGPU
-	WGPUInstanceDescriptor desc = {};
-	desc.nextInChain = nullptr;
+	WGPUInstanceDescriptor desc;
+	desc.nextInChain = NULL;
 	WGPUInstance instance = wgpuCreateInstance(&desc);
 
 	// Init GLFW
@@ -52,5 +55,6 @@ int main(int, char**) {
 	while (!glfwWindowShouldClose(window)) glfwPollEvents();
 	glfwDestroyWindow(window);
 	glfwTerminate();
+
 	return 0;
 }

@@ -3,6 +3,11 @@ GLFW WebGPU Extension
 
 This is an extension for the great [GLFW](https://www.glfw.org/) library for using it with **WebGPU native**. It was written as part of the [Learn WebGPU for native C++](https://eliemichel.github.io/LearnWebGPU) tutorial series.
 
+ - [Overview](#overview)
+ - [Usage](#usage)
+ - [Example](#example)
+ - [License](#license)
+
 Overview
 --------
 
@@ -12,12 +17,17 @@ This extension simply provides the following function:
 WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window);
 ```
 
-Given a GLFW window, `glfwGetWGPUSurface` returns a WebGPU *surface* that corresponds to the window's back-end.
+Given a GLFW window, `glfwGetWGPUSurface` returns a WebGPU *surface* that corresponds to the window's back-end. This is a process that is highly platform-specific, which is why I believe it belongs to GLFW.
+
+Usage
+-----
+
+Just copy `glfw3webgpu.h` and `glfw3webgpu.c` to your project's source tree. Your project must link to an implementation of WebGPU (providing `webgpu.h`) and of course to GLFW.
 
 Example
 -------
 
-This is a process that is highly platform-specific, which is why I believe it belongs to GLFW. Thanks to this extension it is possible to simply write a fully cross-platform WebGPU hello world:
+Thanks to this extension it is possible to simply write a fully cross-platform WebGPU hello world:
 
 ```C
 #include "glfw3webgpu.h"
@@ -26,10 +36,10 @@ This is a process that is highly platform-specific, which is why I believe it be
 #include <webgpu.h>
 #include <stdio.h>
 
-int main(int, char**) {
+int main(int argc, char* argv[]) {
 	// Init WebGPU
-	WGPUInstanceDescriptor desc = {};
-	desc.nextInChain = nullptr;
+	WGPUInstanceDescriptor desc;
+	desc.nextInChain = NULL;
 	WGPUInstance instance = wgpuCreateInstance(&desc);
 
 	// Init GLFW
@@ -45,11 +55,12 @@ int main(int, char**) {
 	while (!glfwWindowShouldClose(window)) glfwPollEvents();
 	glfwDestroyWindow(window);
 	glfwTerminate();
+
 	return 0;
 }
 ```
 
-**NB** The linking process depends on the implementation of WebGPU that you are using. You can find detailed instructions for the `wgpu-native` implementation in [this Hello WebGPU chapter](https://eliemichel.github.io/LearnWebGPU/getting-started/hello-webgpu.html).
+**NB** The linking process depends on the implementation of WebGPU that you are using. You can find detailed instructions for the `wgpu-native` implementation in [this Hello WebGPU chapter](https://eliemichel.github.io/LearnWebGPU/getting-started/hello-webgpu.html). You may also check out [`examples/CMakeLists.txt`](examples/CMakeLists.txt).
 
 License
 -------
