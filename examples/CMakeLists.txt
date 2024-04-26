@@ -9,7 +9,7 @@ include(utils.cmake)
 FetchContent_Declare(
   glfw-light
   URL      https://eliemichel.github.io/LearnWebGPU/_downloads/eed380b810a75153b7402fee040e2d7c/glfw.zip
-  URL_HASH MD5=e4ab5737d99a06b20156780be057da42
+  URL_HASH MD5=e6684142080457e9227e4f78a6f84fc2
 )
 FetchContent_Declare(
   webgpu
@@ -29,3 +29,12 @@ target_link_libraries(hello-glfw3webgpu PRIVATE glfw webgpu glfw3webgpu)
 set_target_properties(hello-glfw3webgpu PROPERTIES CXX_STANDARD 17)
 target_treat_all_warnings_as_errors(hello-glfw3webgpu)
 target_copy_webgpu_binaries(hello-glfw3webgpu)
+
+if (UNIX AND NOT APPLE)
+  # Test of runtime platform selection (new with GLFW 3.4)
+  add_executable(test test-glfw3webgpu-runtime-switch.c)
+  target_link_libraries(test PRIVATE glfw webgpu glfw3webgpu)
+  set_target_properties(test PROPERTIES CXX_STANDARD 17)
+  target_treat_all_warnings_as_errors(test)
+  target_copy_webgpu_binaries(test)
+endif()
