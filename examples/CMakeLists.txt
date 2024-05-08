@@ -8,8 +8,8 @@ include(utils.cmake)
 # Dependencies
 FetchContent_Declare(
   glfw-light
-  URL      https://eliemichel.github.io/LearnWebGPU/_downloads/823ae747c9d201d7bfefb17fb832d853/glfw-3.3.8-light.zip
-  URL_HASH MD5=e4ab5737d99a06b20156780be057da42
+  URL      https://eliemichel.github.io/LearnWebGPU/_downloads/6873a344e35ea9f5e4fc7e5cc85d3ab8/glfw-3.4.0-light.zip
+  URL_HASH MD5=e6684142080457e9227e4f78a6f84fc2
 )
 FetchContent_Declare(
   webgpu
