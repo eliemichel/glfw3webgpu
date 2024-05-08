@@ -33,11 +33,9 @@
 #include <GLFW/glfw3.h>
 #include <webgpu/webgpu.h>
 #include <stdio.h>
+#include <assert.h>
 
-int main(int argc, char* argv[]) {
-	(void)argc;
-	(void)argv;
-
+void main_x11() {
 	// Init WebGPU
 	WGPUInstanceDescriptor desc;
 	desc.nextInChain = NULL;
@@ -46,6 +44,7 @@ int main(int argc, char* argv[]) {
 	// Init GLFW
 	glfwInit();
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+	glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
 	GLFWwindow* window = glfwCreateWindow(640, 480, "Learn WebGPU", NULL, NULL);
 
 	// Here we create our WebGPU surface from the window!
@@ -56,6 +55,38 @@ int main(int argc, char* argv[]) {
 	while (!glfwWindowShouldClose(window)) glfwPollEvents();
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+void main_wayland() {
+	assert(glfwPlatformSupported(GLFW_PLATFORM_WAYLAND));
+
+	// Init WebGPU
+	WGPUInstanceDescriptor desc;
+	desc.nextInChain = NULL;
+	WGPUInstance instance = wgpuCreateInstance(&desc);
+
+	// Init GLFW
+	glfwInit();
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+	glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
+	GLFWwindow* window = glfwCreateWindow(640, 480, "Learn WebGPU", NULL, NULL);
+
+	// Here we create our WebGPU surface from the window!
+	WGPUSurface surface = glfwGetWGPUSurface(instance, window);
+	printf("surface = %p", (void*)surface);
+
+	// Terminate GLFW
+	while (!glfwWindowShouldClose(window)) glfwPollEvents();
+	glfwDestroyWindow(window);
+	glfwTerminate();
+}
+
+int main(int argc, char* argv[]) {
+	(void)argc;
+	(void)argv;
+
+	main_x11();
+	main_wayland();
 
 	return 0;
 }
