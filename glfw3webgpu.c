@@ -70,13 +70,14 @@ WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
         Display* x11_display = glfwGetX11Display();
         Window x11_window = glfwGetX11Window(window);
 
-        WGPUSurfaceDescriptorFromXlibWindow fromXlibWindow;
-        fromXlibWindow.chain.next = NULL;
 #  ifdef WEBGPU_BACKEND_DAWN
+        WGPUSurfaceSourceXlibWindow fromXlibWindow;
         fromXlibWindow.chain.sType = WGPUSType_SurfaceSourceXlibWindow;
 #  else
+        WGPUSurfaceDescriptorFromXlibWindow fromXlibWindow;
         fromXlibWindow.chain.sType = WGPUSType_SurfaceDescriptorFromXlibWindow;
 #  endif
+        fromXlibWindow.chain.next = NULL;
         fromXlibWindow.display = x11_display;
         fromXlibWindow.window = x11_window;
 
@@ -93,13 +94,14 @@ WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
         struct wl_display* wayland_display = glfwGetWaylandDisplay();
         struct wl_surface* wayland_surface = glfwGetWaylandWindow(window);
 
-        WGPUSurfaceDescriptorFromWaylandSurface fromWaylandSurface;
-        fromWaylandSurface.chain.next = NULL;
 #  ifdef WEBGPU_BACKEND_DAWN
+        WGPUSurfaceSourceWaylandSurface fromWaylandSurface;
         fromWaylandSurface.chain.sType = WGPUSType_SurfaceSourceWaylandSurface;
 #  else
+        WGPUSurfaceDescriptorFromWaylandSurface fromWaylandSurface;
         fromWaylandSurface.chain.sType = WGPUSType_SurfaceDescriptorFromWaylandSurface;
 #  endif
+        fromWaylandSurface.chain.next = NULL;
         fromWaylandSurface.display = wayland_display;
         fromWaylandSurface.surface = wayland_surface;
 
@@ -118,13 +120,14 @@ WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
         [ns_window.contentView setWantsLayer : YES] ;
         [ns_window.contentView setLayer : metal_layer] ;
 
-        WGPUSurfaceDescriptorFromMetalLayer fromMetalLayer;
-        fromMetalLayer.chain.next = NULL;
 #  ifdef WEBGPU_BACKEND_DAWN
+        WGPUSurfaceSourceMetalLayer fromMetalLayer;
         fromMetalLayer.chain.sType = WGPUSType_SurfaceSourceMetalLayer;
 #  else
+        WGPUSurfaceDescriptorFromMetalLayer fromMetalLayer;
         fromMetalLayer.chain.sType = WGPUSType_SurfaceDescriptorFromMetalLayer;
 #  endif
+        fromMetalLayer.chain.next = NULL;
         fromMetalLayer.layer = metal_layer;
 
         WGPUSurfaceDescriptor surfaceDescriptor;
@@ -140,13 +143,14 @@ WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
         HWND hwnd = glfwGetWin32Window(window);
         HINSTANCE hinstance = GetModuleHandle(NULL);
 
-        WGPUSurfaceDescriptorFromWindowsHWND fromWindowsHWND;
-        fromWindowsHWND.chain.next = NULL;
 #  ifdef WEBGPU_BACKEND_DAWN
+        WGPUSurfaceSourceWindowsHWND fromWindowsHWND;
         fromWindowsHWND.chain.sType = WGPUSType_SurfaceSourceWindowsHWND;
 #  else
+        WGPUSurfaceDescriptorFromWindowsHWND fromWindowsHWND;
         fromWindowsHWND.chain.sType = WGPUSType_SurfaceDescriptorFromWindowsHWND;
 #  endif
+        fromWindowsHWND.chain.next = NULL;
         fromWindowsHWND.hinstance = hinstance;
         fromWindowsHWND.hwnd = hwnd;
 
@@ -160,13 +164,14 @@ WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
 
 #ifdef GLFW_EXPOSE_NATIVE_EMSCRIPTEN
     case GLFW_PLATFORM_EMSCRIPTEN: {
-        WGPUSurfaceDescriptorFromCanvasHTMLSelector fromCanvasHTMLSelector;
-        fromCanvasHTMLSelector.chain.next = NULL;
 #  ifdef WEBGPU_BACKEND_DAWN
+        WGPUSurfaceSourceCanvasHTMLSelector_Emscripten fromCanvasHTMLSelector;
         fromCanvasHTMLSelector.chain.sType = WGPUSType_SurfaceSourceCanvasHTMLSelector_Emscripten;
 #  else
+        WGPUSurfaceDescriptorFromCanvasHTMLSelector fromCanvasHTMLSelector;
         fromCanvasHTMLSelector.chain.sType = WGPUSType_SurfaceDescriptorFromCanvasHTMLSelector;
 #  endif
+        fromCanvasHTMLSelector.chain.next = NULL;
         fromCanvasHTMLSelector.selector = "canvas";
 
         WGPUSurfaceDescriptor surfaceDescriptor;
