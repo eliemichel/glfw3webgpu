@@ -62,7 +62,7 @@
 #  include <GLFW/glfw3native.h>
 #endif
 
-WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
+WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
     switch (glfwGetPlatform()) {
 
 #ifdef GLFW_EXPOSE_NATIVE_X11

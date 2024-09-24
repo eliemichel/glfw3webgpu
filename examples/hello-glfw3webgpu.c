@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
 	GLFWwindow* window = glfwCreateWindow(640, 480, "Learn WebGPU", NULL, NULL);
 
 	// Here we create our WebGPU surface from the window!
-	WGPUSurface surface = glfwGetWGPUSurface(instance, window);
+	WGPUSurface surface = glfwCreateWindowWGPUSurface(instance, window);
 	printf("surface = %p", (void*)surface);
 
 	// Terminate GLFW
