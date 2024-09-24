@@ -38,6 +38,9 @@
 
 #ifdef __EMSCRIPTEN__
 #  define GLFW_EXPOSE_NATIVE_EMSCRIPTEN
+#  ifndef GLFW_PLATFORM_EMSCRIPTEN // not defined in older versions of emscripten
+#    define GLFW_PLATFORM_EMSCRIPTEN 0
+#  endif
 #else // __EMSCRIPTEN__
 #  ifdef _GLFW_X11
 #    define GLFW_EXPOSE_NATIVE_X11
@@ -63,7 +66,12 @@
 #endif
 
 WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* window) {
+#ifndef __EMSCRIPTEN__
     switch (glfwGetPlatform()) {
+#else
+    // glfwGetPlatform is not available in older versions of emscripten
+    switch (GLFW_PLATFORM_EMSCRIPTEN) {
+#endif
 
 #ifdef GLFW_EXPOSE_NATIVE_X11
     case GLFW_PLATFORM_X11: {
