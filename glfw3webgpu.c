@@ -128,13 +128,9 @@ WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* windo
         [ns_window.contentView setWantsLayer : YES] ;
         [ns_window.contentView setLayer : metal_layer] ;
 
-#  ifdef WEBGPU_BACKEND_DAWN
-        WGPUSurfaceSourceMetalLayer fromMetalLayer;
-        fromMetalLayer.chain.sType = WGPUSType_SurfaceSourceMetalLayer;
-#  else
+
         WGPUSurfaceDescriptorFromMetalLayer fromMetalLayer;
         fromMetalLayer.chain.sType = WGPUSType_SurfaceDescriptorFromMetalLayer;
-#  endif
         fromMetalLayer.chain.next = NULL;
         fromMetalLayer.layer = metal_layer;
 
