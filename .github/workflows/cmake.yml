@@ -24,7 +24,7 @@ jobs:
           runner: ubuntu-latest
           install-deps: |
             sudo apt-get update -y
-            sudo apt-get install -y xorg-dev
+            sudo apt-get install -y libwayland-dev libxkbcommon-dev xorg-dev
 
         - system: Windows-MSVC-x64
           runner: windows-latest
@@ -82,8 +82,8 @@ jobs:
 
     - name: Run (Multiconfig)
       if: ${{ matrix.is-multiconfig }}
-      run: build/${{ matrix.build-type }}/test${{ matrix.exe-extension }}
+      run: build/${{ matrix.build-type }}/hello-glfw3webgpu${{ matrix.exe-extension }}
 
     - name: Run (Monoconfig)
       if: ${{ !matrix.is-multiconfig }}
-      run: build/test${{ matrix.exe-extension }}
+      run: build/hello-glfw3webgpu${{ matrix.exe-extension }}
