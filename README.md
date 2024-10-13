@@ -33,10 +33,10 @@ Overview
 This extension simply provides the following function:
 
 ```C
-WGPUSurface glfwGetWGPUSurface(WGPUInstance instance, GLFWwindow* window);
+WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* window);
 ```
 
-Given a GLFW window, `glfwGetWGPUSurface` returns a WebGPU *surface* that corresponds to the window's back-end. This is a process that is highly platform-specific, which is why I believe it belongs to GLFW.
+Given a GLFW window, `glfwCreateWindowWGPUSurface` returns a WebGPU *surface* that corresponds to the window's back-end. This is a process that is highly platform-specific, which is why I believe it belongs to GLFW.
 
 Usage
 -----
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
 	GLFWwindow* window = glfwCreateWindow(640, 480, "Learn WebGPU", NULL, NULL);
 
 	// Here we create our WebGPU surface from the window!
-	WGPUSurface surface = glfwGetWGPUSurface(instance, window);
+	WGPUSurface surface = glfwCreateWindowWGPUSurface(instance, window);
 	printf("surface = %p", surface);
 
 	// Terminate GLFW
