@@ -48,6 +48,7 @@ jobs:
           link-type: STATIC
           build-type: Release
           cmake-wrapper: emcmake
+          emsdk-version: 3.1.61
 
         # Latest version of Dawn to not support static linking
         exclude:
