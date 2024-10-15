@@ -44,20 +44,16 @@ jobs:
           runner: macos-13
 
         - system: emscripten
-          runner: ubuntu-latest
+          runner: windows-latest
           cmake-wrapper: emcmake
           emsdk-version: 3.1.61
+          webgpu-backend: EMSCRIPTEN
+          link-type: STATIC
 
         exclude:
           # Latest version of Dawn to not support static linking
         - webgpu-backend: DAWN
           link-type: STATIC
-          # Emscripten does not care about backend, keeping only DAWN as a mock value
-        - system: emscripten
-          webgpu-backend: WGPU
-          # Emscripten does not care about linking, keeping only STATIC as a mock value
-        - system: emscripten
-          link-type: SHARED
         
         
     runs-on: ${{ matrix.runner }}
