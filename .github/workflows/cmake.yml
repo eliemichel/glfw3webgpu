@@ -50,8 +50,8 @@ jobs:
           webgpu-backend: EMSCRIPTEN
           link-type: STATIC
 
+        # Latest version of Dawn to not support static linking
         exclude:
-          # Latest version of Dawn to not support static linking
         - webgpu-backend: DAWN
           link-type: STATIC
         
