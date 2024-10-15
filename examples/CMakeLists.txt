@@ -6,7 +6,18 @@ include(FetchContent)
 include(utils.cmake)
 
 # Dependencies
-if (NOT EMSCRIPTEN)
+if (EMSCRIPTEN)
+  
+  add_library(glfw INTERFACE)
+  target_link_options(glfw INTERFACE -sUSE_GLFW=3)
+
+  add_library(webgpu INTERFACE)
+  target_link_options(webgpu INTERFACE -sUSE_WEBGPU=1)
+  function(target_copy_webgpu_binaries)
+  endfunction()
+
+else (EMSCRIPTEN)
+
   FetchContent_Declare(
     glfw-light
     URL      https://eliemichel.github.io/LearnWebGPU/_downloads/6873a344e35ea9f5e4fc7e5cc85d3ab8/glfw-3.4.0-light.zip
@@ -18,13 +29,8 @@ if (NOT EMSCRIPTEN)
     GIT_TAG        7ed61fb96d972a4c61ccc79af1139eba2a0ce4c4  # fetch
   )
   FetchContent_MakeAvailable(glfw-light webgpu)
-else()
-    # Emscripten has built-in support for GLFW but requires the `-sUSE_GLFW=3` link option:
-    add_library(glfw-light INTERFACE)
-    target_link_options(glfw-light INTERFACE -sUSE_GLFW=3)
-    add_library(webgpu INTERFACE)
-    target_link_options(webgpu INTERFACE -sUSE_WEBGPU=1)
-endif()
+
+endif (EMSCRIPTEN)
 
 # The glfw3webgpu target
 # NB: We specify a second argument only because this is an out-of-tree
