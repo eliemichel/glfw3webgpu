@@ -34,7 +34,6 @@ jobs:
         - system: Windows-MSYS-x64
           runner: windows-latest
           msystem: ucrt64
-          extra-cmake-args: -G "MSYS Makefiles"
           exe-extension: .exe
 
         - system: MacOS-ARM
@@ -42,13 +41,6 @@ jobs:
 
         - system: MacOS-x64
           runner: macos-13
-
-        - system: emscripten
-          runner: windows-latest
-          cmake-wrapper: emcmake
-          emsdk-version: 3.1.61
-          webgpu-backend: EMSCRIPTEN
-          link-type: STATIC
 
         # Latest version of Dawn to not support static linking
         exclude:
@@ -69,7 +61,72 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         msystem: ${{ matrix.msystem }}
-        pacboy: cmake:p
+        pacboy: >-
+          toolchain:p
+          cmake:p
+          ninja:p
+
+    - name: Setup emscripten
+      if: ${{ matrix.emsdk-version }}
+      uses: mymindstorm/setup-emsdk@v14
+      with:
+        version: ${{ matrix.emsdk-version }}
+
+    - name: Configure CMake
+      if: ${{ ! matrix.msystem }}
+      run: >
+        ${{ matrix.cmake-wrapper }} cmake
+        -S examples
+        -B build
+        -DWEBGPU_BACKEND=${{ matrix.webgpu-backend }}
+        -D${{ matrix.webgpu-backend }}_LINK_TYPE=${{ matrix.link-type }}
+        -DCMAKE_BUILD_TYPE=${{ matrix.build-type }}
+
+    - name: Build
+      if: ${{ ! matrix.msystem }}
+      run: >
+        cmake
+        --build build
+        --config ${{ matrix.build-type }}
+
+    # This is a hack to work around the lack of ${{ variables }} in 'shell' parameter
+    # We use the SHELL env variable as the value of 'shell'
+    - name: Configure CMake (MSYS)
+      if: ${{ matrix.msystem }}
+      shell: msys2 {0}
+      run: >
+        cmake
+        -S examples
+        -B build
+        -DWEBGPU_BACKEND=${{ matrix.webgpu-backend }}
+        -D${{ matrix.webgpu-backend }}_LINK_TYPE=${{ matrix.link-type }}
+        -DCMAKE_BUILD_TYPE=${{ matrix.build-type }}
+
+    - name: Build (MSYS)
+      if: ${{ matrix.msystem }}
+      shell: msys2 {0}
+      run: >
+        cmake
+        --build build
+        --config ${{ matrix.build-type }}
+
+  # Was too annoying to put emscripten in the matrix, so here it is, on its own:
+  build-web:
+    strategy:
+      fail-fast: false
+      matrix:
+        system: [ emscripten ]
+        build-type: [ Debug, Release ]
+        emsdk-version: [ 3.1.61 ]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      if: ${{ matrix.install-deps }}
+      run: ${{ matrix.install-deps }}
 
     - name: Setup emscripten
       if: ${{ matrix.emsdk-version }}
@@ -79,13 +136,10 @@ jobs:
 
     - name: Configure CMake
       run: >
-        ${{ matrix.cmake-wrapper }} cmake
+        emcmake cmake
         -S examples
         -B build
-        -DWEBGPU_BACKEND=${{ matrix.webgpu-backend }}
-        -D${{ matrix.webgpu-backend }}_LINK_TYPE=${{ matrix.link-type }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build-type }}
-        ${{ matrix.extra-cmake-args }}
 
     - name: Build
       run: >
