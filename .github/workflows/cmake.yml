@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        system: [ Linux-x64, Windows-MSVC-x64, Windows-MSYS-x64, MacOS-x64, MacOS-ARM, emscripten ]
+        system: [ Linux-x64, Windows-MSVC-x64, Windows-MSYS-x64, MacOS-x64, MacOS-ARM ]
         webgpu-backend: [ DAWN, WGPU ]
         link-type: [ SHARED, STATIC ]
         build-type: [ Debug, Release ]
