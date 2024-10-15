@@ -6,17 +6,25 @@ include(FetchContent)
 include(utils.cmake)
 
 # Dependencies
-FetchContent_Declare(
-  glfw-light
-  URL      https://eliemichel.github.io/LearnWebGPU/_downloads/6873a344e35ea9f5e4fc7e5cc85d3ab8/glfw-3.4.0-light.zip
-  URL_HASH MD5=e6684142080457e9227e4f78a6f84fc2
-)
-FetchContent_Declare(
-  webgpu
-  GIT_REPOSITORY https://github.com/eliemichel/WebGPU-distribution.git
-  GIT_TAG        7ed61fb96d972a4c61ccc79af1139eba2a0ce4c4  # fetch
-)
-FetchContent_MakeAvailable(glfw-light webgpu)
+if (NOT EMSCRIPTEN)
+  FetchContent_Declare(
+    glfw-light
+    URL      https://eliemichel.github.io/LearnWebGPU/_downloads/6873a344e35ea9f5e4fc7e5cc85d3ab8/glfw-3.4.0-light.zip
+    URL_HASH MD5=e6684142080457e9227e4f78a6f84fc2
+  )
+  FetchContent_Declare(
+    webgpu
+    GIT_REPOSITORY https://github.com/eliemichel/WebGPU-distribution.git
+    GIT_TAG        7ed61fb96d972a4c61ccc79af1139eba2a0ce4c4  # fetch
+  )
+  FetchContent_MakeAvailable(glfw-light webgpu)
+else()
+    # Emscripten has built-in support for GLFW but requires the `-sUSE_GLFW=3` link option:
+    add_library(glfw-light INTERFACE)
+    target_link_options(glfw-light INTERFACE -sUSE_GLFW=3)
+    add_library(webgpu INTERFACE)
+    target_link_options(webgpu INTERFACE -sUSE_WEBGPU=1)
+endif()
 
 # The glfw3webgpu target
 # NB: We specify a second argument only because this is an out-of-tree
