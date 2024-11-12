@@ -168,7 +168,7 @@ WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* windo
 
         return wgpuInstanceCreateSurface(instance, &surfaceDescriptor);
     }
-#endif // GLFW_EXPOSE_NATIVE_X11
+#endif // GLFW_EXPOSE_NATIVE_WIN32
 
 #ifdef GLFW_EXPOSE_NATIVE_EMSCRIPTEN
     case GLFW_PLATFORM_EMSCRIPTEN: {
@@ -188,7 +188,7 @@ WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* windo
 
         return wgpuInstanceCreateSurface(instance, &surfaceDescriptor);
     }
-#endif // GLFW_EXPOSE_NATIVE_X11
+#endif // GLFW_EXPOSE_NATIVE_EMSCRIPTEN
 
     default:
         // Unsupported platform
