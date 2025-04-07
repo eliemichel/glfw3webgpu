@@ -25,8 +25,8 @@ else (EMSCRIPTEN)
   )
   FetchContent_Declare(
     webgpu
-    GIT_REPOSITORY https://github.com/eliemichel/WebGPU-distribution.git
-    GIT_TAG        7ed61fb96d972a4c61ccc79af1139eba2a0ce4c4  # fetch
+    URL https://github.com/eliemichel/WebGPU-distribution/archive/refs/tags/main-v0.3.0-alpha.zip
+    URL_HASH MD5=ea1195dc6c7661c36aa13ea5b734b86e
   )
   FetchContent_MakeAvailable(glfw-light webgpu)
 
