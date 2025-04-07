@@ -153,13 +153,13 @@ WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* windo
 #ifdef GLFW_EXPOSE_NATIVE_EMSCRIPTEN
     case GLFW_PLATFORM_EMSCRIPTEN: {
         WGPUSurfaceSourceCanvasHTMLSelector_Emscripten fromCanvasHTMLSelector;
-        fromCanvasHTMLSelector.chain.sType = WGPUSType_SurfaceSourceCanvasHTMLSelector_Emscripten;
+        fromCanvasHTMLSelector.chain.sType = WGPUSType_SurfaceDescriptorFromCanvasHTMLSelector;
         fromCanvasHTMLSelector.chain.next = NULL;
         fromCanvasHTMLSelector.selector = "canvas";
 
         WGPUSurfaceDescriptor surfaceDescriptor;
         surfaceDescriptor.nextInChain = &fromCanvasHTMLSelector.chain;
-        surfaceDescriptor.label = (WGPUStringView){ NULL, WGPU_STRLEN };
+        surfaceDescriptor.label = NULL;
 
         return wgpuInstanceCreateSurface(instance, &surfaceDescriptor);
     }
