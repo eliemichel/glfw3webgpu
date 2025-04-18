@@ -152,8 +152,13 @@ WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* windo
 
 #ifdef GLFW_EXPOSE_NATIVE_EMSCRIPTEN
     case GLFW_PLATFORM_EMSCRIPTEN: {
+#  ifdef WEBGPU_BACKEND_EMDAWNWEBGPU
+        WGPUEmscriptenSurfaceSourceCanvasHTMLSelector fromCanvasHTMLSelector;
+        fromCanvasHTMLSelector.chain.sType = WGPUSType_EmscriptenSurfaceSourceCanvasHTMLSelector;
+#  else
         WGPUSurfaceDescriptorFromCanvasHTMLSelector fromCanvasHTMLSelector;
         fromCanvasHTMLSelector.chain.sType = WGPUSType_SurfaceDescriptorFromCanvasHTMLSelector;
+#  endif
         fromCanvasHTMLSelector.chain.next = NULL;
         fromCanvasHTMLSelector.selector = "canvas";
 
