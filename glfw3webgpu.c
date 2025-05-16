@@ -155,17 +155,21 @@ WGPUSurface glfwCreateWindowWGPUSurface(WGPUInstance instance, GLFWwindow* windo
 #  ifdef WEBGPU_BACKEND_EMDAWNWEBGPU
         WGPUEmscriptenSurfaceSourceCanvasHTMLSelector fromCanvasHTMLSelector;
         fromCanvasHTMLSelector.chain.sType = WGPUSType_EmscriptenSurfaceSourceCanvasHTMLSelector;
+        fromCanvasHTMLSelector.selector = (WGPUStringView){ "canvas", WGPU_STRLEN };
 #  else
         WGPUSurfaceDescriptorFromCanvasHTMLSelector fromCanvasHTMLSelector;
         fromCanvasHTMLSelector.chain.sType = WGPUSType_SurfaceDescriptorFromCanvasHTMLSelector;
+        fromCanvasHTMLSelector.selector = "canvas";
 #  endif
         fromCanvasHTMLSelector.chain.next = NULL;
-        fromCanvasHTMLSelector.selector = "canvas";
 
         WGPUSurfaceDescriptor surfaceDescriptor;
         surfaceDescriptor.nextInChain = &fromCanvasHTMLSelector.chain;
+#  ifdef WEBGPU_BACKEND_EMDAWNWEBGPU
+        surfaceDescriptor.label = (WGPUStringView){ NULL, WGPU_STRLEN };
+#  else
         surfaceDescriptor.label = NULL;
-
+#  endif
         return wgpuInstanceCreateSurface(instance, &surfaceDescriptor);
     }
 #endif // GLFW_EXPOSE_NATIVE_EMSCRIPTEN
